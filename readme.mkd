@@ -31,25 +31,18 @@ We will be using a [Vagrant][] managed VirtualBox install as a base system.
 
         config.vm.box = "precise32"
 
-5. Launch the virtual machine:
+5. Uncomment the following line in the generated `Vagrantfile` to enable port
+   forwarding:
+
+        config.vm.forward_port 8080, 8080
+
+6. Launch the virtual machine:
 
         vagrant up
 
 Your Ubuntu virtual machine should now be up and running. Confirm by running:
 
     vagrant ssh
-
-### Optional
-
-If running CSS Validator through a web server (see the [Optional](#optional)
-section below), uncomment the following line in the generated `Vagrantfile` to
-enable port forwarding:
-
-    config.vm.forward_port 80, 8080
-
-... then reload the virtual machine with:
-
-    vagrant reload
 
 ## Installing CSS Validator
 
@@ -94,7 +87,7 @@ container.
         sudo apt-get install tomcat7
 
 2. Configure CSS Validator to use Tomcat by replacing the following line in
-`~/build/2002/css-validator/build.xml`
+`~/build/2002/css-validator/build.xml`:
 
         <property name="servlet.lib" value="/usr/share/java/servlet-2.3.jar"/>
 
@@ -104,10 +97,33 @@ container.
 
 ### 4. Build CSS Validator
 
+*Note*: at the time of writing, CSS Validator's build script uses an outdated
+ link to a number of dependencies. To fix this, first replace the following
+lines in `~/build/2002/css-validator/build.xml` (first line; before, second
+line; after):
+
+    <get dest="tmp/commons-lang-2.4-bin.tar.gz" src="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.tar.gz" usetimestamp="true"/>
+    <get dest="tmp/commons-lang-2.4-bin.tar.gz" src="https://archive.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.tar.gz" usetimestamp="true"/>
+
+    <get dest="tmp/velocity-1.6.1.tar.gz" src="http://www.apache.org/dist/velocity/engine/1.6.1/velocity-1.6.1.tar.gz" usetimestamp="true"/>
+    <get dest="tmp/velocity-1.6.1.tar.gz" src="https://archive.apache.org/dist/velocity/engine/1.6.1/velocity-1.6.1.tar.gz" usetimestamp="true"/>
+
+    <get dest="tmp/Xerces-J-bin.2.9.1.tar.gz" src="http://www.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.tar.gz" usetimestamp="true"/>
+    <get dest="tmp/Xerces-J-bin.2.9.1.tar.gz" src="https://archive.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.tar.gz" usetimestamp="true"/>
+
 To build the CSS Validator WAR file, run:
 
       cd ~/build/2002/css-validator
-      ant
+      ant war
+
+### 5. Launch Tomcat
+
+Start Tomcat using:
+
+    sudo service tomcat7 start
+
+Validator should now be set up and ready to go. Browse to
+[http://localhost:8080/css-validator][localhost8080] to see it running.
 
 ## References
 
@@ -127,4 +143,5 @@ Need to site-wide validate your site? Like beautiful reports? Try
   [vagrant]: http://vagrantup.com/
   [vagrantdl]: http://downloads.vagrantup.com/tags/v1.0.5
   [official]: http://jigsaw.w3.org/css-validator/DOWNLOAD.html
+  [localhost8080]: http://localhost:8080/css-validator
   [markupvalidator]: http://markupvalidator.com
