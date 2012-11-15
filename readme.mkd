@@ -109,6 +109,9 @@ To build the CSS Validator WAR file, run:
 
 ### 5. Launch Tomcat
 
+*Note*: Ubuntu's default configuration starts Tomcat on install and at system
+ startup.
+
 Start Tomcat using:
 
     sudo service tomcat7 start
