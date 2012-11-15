@@ -104,8 +104,8 @@ after):
 
 To build the CSS Validator WAR file, run:
 
-      cd ~/build/2002/css-validator
-      ant war
+    cd ~/build/2002/css-validator
+    ant war
 
 ### 5. Launch Tomcat
 
