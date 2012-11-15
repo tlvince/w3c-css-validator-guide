@@ -59,14 +59,14 @@ Your Ubuntu virtual machine should now be up and running. Confirm by running:
 
 ### 2. Install CSS Validator
 
-1. Download CSS Validator
+Download CSS Validator
 
-        mkdir ~/build
-        cd ~/build
-        export CVSROOT=":pserver:anonymous@dev.w3.org:/sources/public"
-        cvs login
-        CVS password: anonymous
-        cvs get -r nytrulce 2002/css-validator
+    mkdir ~/build
+    cd ~/build
+    export CVSROOT=":pserver:anonymous@dev.w3.org:/sources/public"
+    cvs login
+    CVS password: anonymous
+    cvs get -r nytrulce 2002/css-validator
 
 ### 3. Install a Java Servlet container
 
