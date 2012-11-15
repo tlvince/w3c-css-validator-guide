@@ -1,0 +1,130 @@
+# Building the W3C CSS Validation Service from source
+
+## Preamble
+
+This guide provides a step-by-step walk-through to build and install the [W3C
+CSS Validation Service][home] (herein referred to as *CSS Validator*) from its
+*source* files. It assumes minimal prior system administration experience, uses
+the latest versions and includes all functionality of the validator. The target
+Linux distribution is *Ubuntu Precise*, though each step will be similar for
+any distribution.
+
+## Installing Ubuntu
+
+*Note*: this section can be skipped if you're already familiar with installing
+Ubuntu and/or have a Linux system running.
+
+We will be using a [Vagrant][] managed VirtualBox install as a base system.
+
+1. Download and install Vagrant from a [pre-built package][vagrantdl]
+2. From the command line, download an Ubuntu Precise box with:
+
+        vagrant box add precise32 http://files.vagrantup.com/precise32.box
+
+3. Create an instance of Ubuntu Precise with:
+
+        mkdir cssvalidator
+        cd cssvalidator
+        vagrant init
+
+4. Edit the generated `Vagrantfile` and tell Vagrant to use the `precise32` box:
+
+        config.vm.box = "precise32"
+
+5. Launch the virtual machine:
+
+        vagrant up
+
+Your Ubuntu virtual machine should now be up and running. Confirm by running:
+
+    vagrant ssh
+
+### Optional
+
+If running CSS Validator through a web server (see the [Optional](#optional)
+section below), uncomment the following line in the generated `Vagrantfile` to
+enable port forwarding:
+
+    config.vm.forward_port 80, 8080
+
+... then reload the virtual machine with:
+
+    vagrant reload
+
+## Installing CSS Validator
+
+### 1. Installing CSS Validator dependencies
+
+1. Install build packages:
+
+        sudo apt-get update
+        sudo apt-get install build-essential cvs
+
+2. Install CSS Validator dependencies:
+
+        sudo apt-get install default-jdk ant
+
+### 2. Install CSS Validator
+
+1. Download CSS Validator
+
+        mkdir ~/build
+        cd ~/build
+        export CVSROOT=":pserver:anonymous@dev.w3.org:/sources/public"
+        cvs login
+        CVS password: anonymous
+        cvs get -r nytrulce 2002/css-validator
+
+*Note*: to install the lastest development version (rather than the latest
+ *stable* release), replace the command:
+
+     cvs get -r nytrulce 2002/css-validator
+
+... with:
+
+    cvs get 2002/css-validator
+
+### 3. Install a Java Servlet container
+
+Here, we'll be using Tomcat but the same principles apply to any Java Servlet
+container.
+
+1. Install Tomcat
+
+        sudo apt-get install tomcat7
+
+2. Configure CSS Validator to use Tomcat by replacing the following line in
+`~/build/2002/css-validator/build.xml`
+
+        <property name="servlet.lib" value="/usr/share/java/servlet-2.3.jar"/>
+
+  ... with
+
+        <property name="servlet.lib" value="/usr/share/java/tomcat-servlet-api-3.0.jar"/>
+
+### 4. Build CSS Validator
+
+To build the CSS Validator WAR file, run:
+
+      cd ~/build/2002/css-validator
+      ant
+
+## References
+
+The author would like to thank the CSS Validator Team's [official install
+guide][official], which forms the basis of much of this document.
+
+## License
+
+Copyright 2012 Tom Vincent <http://tlvince.com/contact>, licensed under the
+[Creative Commons Attribution 3.0 Unported License][cc].
+
+Need to site-wide validate your site? Like beautiful reports? Try
+[MarkupValidator][]!
+
+  [cc]: http://creativecommons.org/licenses/by/3.0/
+  [home]: http://jigsaw.w3.org/css-validator/
+  [vagrant]: http://vagrantup.com/
+  [vagrantdl]: http://downloads.vagrantup.com/tags/v1.0.5
+  [official]: http://jigsaw.w3.org/css-validator/DOWNLOAD.html
+  [markupvalidator]: http://markupvalidator.com
