@@ -68,15 +68,6 @@ Your Ubuntu virtual machine should now be up and running. Confirm by running:
         CVS password: anonymous
         cvs get -r nytrulce 2002/css-validator
 
-*Note*: to install the lastest development version (rather than the latest
- *stable* release), replace the command:
-
-     cvs get -r nytrulce 2002/css-validator
-
-... with:
-
-    cvs get 2002/css-validator
-
 ### 3. Install a Java Servlet container
 
 Here, we'll be using Tomcat but the same principles apply to any Java Servlet
@@ -98,9 +89,9 @@ container.
 ### 4. Build CSS Validator
 
 *Note*: at the time of writing, CSS Validator's build script uses an outdated
- link to a number of dependencies. To fix this, first replace the following
-lines in `~/build/2002/css-validator/build.xml` (first line; before, second
-line; after):
+ link to a number of dependencies. To fix this, replace the following lines in
+`~/build/2002/css-validator/build.xml` (first line; before, second line;
+after):
 
     <get dest="tmp/commons-lang-2.4-bin.tar.gz" src="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.tar.gz" usetimestamp="true"/>
     <get dest="tmp/commons-lang-2.4-bin.tar.gz" src="https://archive.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.tar.gz" usetimestamp="true"/>
