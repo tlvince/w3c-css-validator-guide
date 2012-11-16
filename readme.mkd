@@ -66,7 +66,7 @@ Download CSS Validator
     export CVSROOT=":pserver:anonymous@dev.w3.org:/sources/public"
     cvs login
     CVS password: anonymous
-    cvs get -r nytrulce 2002/css-validator
+    cvs get 2002/css-validator
 
 ### 3. Install a Java Servlet container
 
@@ -87,20 +87,6 @@ container.
         <property name="servlet.lib" value="/usr/share/java/tomcat-servlet-api-3.0.jar"/>
 
 ### 4. Build CSS Validator
-
-*Note*: at the time of writing, CSS Validator's build script uses an outdated
- link to a number of dependencies. To fix this, replace the following lines in
-`~/build/2002/css-validator/build.xml` (first line; before, second line;
-after):
-
-    <get dest="tmp/commons-lang-2.4-bin.tar.gz" src="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.tar.gz" usetimestamp="true"/>
-    <get dest="tmp/commons-lang-2.4-bin.tar.gz" src="https://archive.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.tar.gz" usetimestamp="true"/>
-
-    <get dest="tmp/velocity-1.6.1.tar.gz" src="http://www.apache.org/dist/velocity/engine/1.6.1/velocity-1.6.1.tar.gz" usetimestamp="true"/>
-    <get dest="tmp/velocity-1.6.1.tar.gz" src="https://archive.apache.org/dist/velocity/engine/1.6.1/velocity-1.6.1.tar.gz" usetimestamp="true"/>
-
-    <get dest="tmp/Xerces-J-bin.2.9.1.tar.gz" src="http://www.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.tar.gz" usetimestamp="true"/>
-    <get dest="tmp/Xerces-J-bin.2.9.1.tar.gz" src="https://archive.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.tar.gz" usetimestamp="true"/>
 
 To build the CSS Validator WAR file, run:
 
