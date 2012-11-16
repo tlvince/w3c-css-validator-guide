@@ -93,7 +93,13 @@ To build the CSS Validator WAR file, run:
     cd ~/build/2002/css-validator
     ant war
 
-### 5. Launch Tomcat
+### 5. Deploy CSS Validator
+
+Deploy the CSS Validator WAR file:
+
+    sudo cp ~/build/2002/css-validator/css-validator.war /var/lib/tomcat7/webapps
+
+### 6. Launch Tomcat
 
 *Note*: Ubuntu's default configuration starts Tomcat on install and at system
  startup.
