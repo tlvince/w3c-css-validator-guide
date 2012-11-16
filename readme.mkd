@@ -31,8 +31,8 @@ We will be using a [Vagrant][] managed VirtualBox install as a base system.
 
         config.vm.box = "precise32"
 
-5. Uncomment the following line in the generated `Vagrantfile` to enable port
-   forwarding:
+5. Uncomment and edit the following line in the generated `Vagrantfile` to
+   enable port forwarding:
 
         config.vm.forward_port 8080, 8080
 
@@ -95,14 +95,14 @@ To build the CSS Validator WAR file, run:
 
 ### 5. Deploy CSS Validator
 
-Deploy the CSS Validator WAR file:
+Deploy the CSS Validator WAR file with:
 
     sudo cp ~/build/2002/css-validator/css-validator.war /var/lib/tomcat7/webapps
 
 ### 6. Launch Tomcat
 
 *Note*: Ubuntu's default configuration starts Tomcat on install and at system
- startup.
+startup.
 
 Start Tomcat using:
 
